@@ -1,4 +1,4 @@
-package com.example.medic.Models;
+package com.example.medic;
 
 public class Catalog {
     public Integer id;

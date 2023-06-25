@@ -19,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medic.Models.UserToken;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,23 +35,13 @@ public class GetCodeEmailActivity extends AppCompatActivity {
     // позиция ввода текста
     private int selectedPosition = 0;
 
-    //если правильно введен результат
-    private boolean isCurrentCode = false;
-
     String email;
     Integer emailCode;
-
-    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_code_email);
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        email = sharedPref.getString("email", "");
-        emailCode = sharedPref.getInt("code", 9);
-
         code1 = findViewById(R.id.codeEmail1);
         code2 = findViewById(R.id.codeEmail2);
         code3 = findViewById(R.id.codeEmail3);
@@ -61,16 +49,10 @@ public class GetCodeEmailActivity extends AppCompatActivity {
         timeCode = findViewById(R.id.timeCode);
         back = findViewById(R.id.emailBack);
 
-
-
         code1.addTextChangedListener(watcher);
         code2.addTextChangedListener(watcher);
         code3.addTextChangedListener(watcher);
         code4.addTextChangedListener(watcher);
-
-//        setAutoCodeEmail();
-
-        // установка по умолчанию
         showKeyboard(code1);
 
         // обратный отсчет
@@ -82,13 +64,6 @@ public class GetCodeEmailActivity extends AppCompatActivity {
 
     }
 
-    private void setAutoCodeEmail() {
-        code1.setText(String.valueOf(emailCode));
-        code2.setText(String.valueOf(emailCode));
-        code3.setText(String.valueOf(emailCode));
-        code4.setText(String.valueOf(emailCode));
-    }
-
     private void goEmail() {
         Intent email = new Intent(this, AuthActivity.class);
         startActivity(email);
@@ -96,7 +71,6 @@ public class GetCodeEmailActivity extends AppCompatActivity {
     }
     private void showKeyboard(EditText code) {
         code.requestFocus();
-
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(code, InputMethodManager.SHOW_IMPLICIT);
     }
@@ -144,13 +118,13 @@ public class GetCodeEmailActivity extends AppCompatActivity {
                         showKeyboard(code4);
                         break;
                     case 3:
-                        isCurrentCode = checkCode();
+                        String userCode = code1.getText().toString() + code2.getText().toString() + code3.getText().toString() + code4.getText().toString();
                         code1.setEnabled(false);
                         code2.setEnabled(false);
                         code3.setEnabled(false);
                         code4.setEnabled(false);
 
-                        if(isCurrentCode) {
+                        if(userCode.equals("1234")) {
                             Toast.makeText(GetCodeEmailActivity.this, "Все верно", Toast.LENGTH_SHORT).show();
                             Intent create_password = new Intent(GetCodeEmailActivity.this, CreateProfileActivity.class);
                             startActivity(create_password);
@@ -163,39 +137,6 @@ public class GetCodeEmailActivity extends AppCompatActivity {
             }
         }
     };
-
-    private boolean checkCode() {
-        String userCode = code1.getText().toString() + code2.getText().toString() + code3.getText().toString() + code4.getText().toString();
-        if (userCode.equals("1234")) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("token", "23456");
-            editor.apply();
-        }
-
-        return sharedPref.contains("token");
-    }
-
-    private void sendEmailCode() {
-        MedicApi api = MedicApi.retrofit.create(MedicApi.class);
-        Call<UserToken> call = api.signIn(email, emailCode);
-        call.enqueue(new Callback<UserToken>() {
-            @Override
-            public void onResponse(@NonNull Call<UserToken> call, @NonNull Response<UserToken> response) {
-                if (response.isSuccessful()) {
-                    UserToken token = response.body();
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("token", token.getToken());
-                    editor.apply();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<UserToken> call, @NonNull Throwable t) {
-                Toast.makeText(GetCodeEmailActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("ErrorCode", ""+t.getMessage());
-            }
-        });
-    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {

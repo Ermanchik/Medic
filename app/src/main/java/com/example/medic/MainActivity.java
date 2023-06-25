@@ -1,4 +1,4 @@
-package com.example.medic.MainPage;
+package com.example.medic;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,11 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.medic.MainPage.Analys;
-import com.example.medic.MainPage.Helps;
-import com.example.medic.MainPage.Profile;
-import com.example.medic.MainPage.Results;
-import com.example.medic.R;
 import com.example.medic.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,21 +17,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new Analys());
+        replaceFragment(new AnalysFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.analize:
-                    replaceFragment(new Analys());
+                    replaceFragment(new AnalysFragment());
                     break;
                 case R.id.results:
-                    replaceFragment(new Results());
+                    replaceFragment(new ResultsFragment());
                     break;
                 case R.id.support:
-                    replaceFragment(new Helps());
+                    replaceFragment(new HelpsFragment());
                     break;
                 case R.id.profile:
-                    replaceFragment(new Profile()       );
+                    replaceFragment(new ProfileFragment()       );
                     break;
             }
 

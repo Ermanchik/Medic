@@ -21,10 +21,7 @@
             android:name=".CreateProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".PasswordAppActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainPage.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".CreatePasswordActivity"
@@ -36,7 +33,7 @@
             android:name=".AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".HelloPage.OnBoardActivity"
+            android:name=".OnBoardActivity"
             android:exported="false" />
         <activity
             android:name=".LauncherActivity"

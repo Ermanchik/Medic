@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.medic.MainPage.MainActivity;
-
 public class CreatePasswordActivity extends AppCompatActivity {
 
     private Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnDel;
@@ -53,11 +51,6 @@ public class CreatePasswordActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String text = charSequence.toString();
                 if (text.length() == 4) {
-                    Log.d("Errorrrr", ""+text);
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(CreatePasswordActivity.this);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("pin", text);
-                    editor.apply();
                     Toast.makeText(CreatePasswordActivity.this, "Пароль создан", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CreatePasswordActivity.this, MainActivity.class);
                     startActivity(intent);
