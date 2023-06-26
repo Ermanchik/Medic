@@ -17,21 +17,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new AnalysFragment());
+        replaceFragment(new analys());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.analize:
-                    replaceFragment(new AnalysFragment());
+                    replaceFragment(new analys());
                     break;
                 case R.id.results:
-                    replaceFragment(new ResultsFragment());
+                    replaceFragment(new resul());
                     break;
                 case R.id.support:
-                    replaceFragment(new HelpsFragment());
+                    replaceFragment(new help());
                     break;
                 case R.id.profile:
-                    replaceFragment(new ProfileFragment()       );
+                    replaceFragment(new profil()       );
                     break;
             }
 

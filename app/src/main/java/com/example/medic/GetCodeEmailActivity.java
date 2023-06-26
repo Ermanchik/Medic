@@ -41,7 +41,7 @@ public class GetCodeEmailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_code_email);
+        setContentView(R.layout.cod_mail);
         code1 = findViewById(R.id.codeEmail1);
         code2 = findViewById(R.id.codeEmail2);
         code3 = findViewById(R.id.codeEmail3);
@@ -65,7 +65,7 @@ public class GetCodeEmailActivity extends AppCompatActivity {
     }
 
     private void goEmail() {
-        Intent email = new Intent(this, AuthActivity.class);
+        Intent email = new Intent(this, auth.class);
         startActivity(email);
         finish();
     }
@@ -126,7 +126,7 @@ public class GetCodeEmailActivity extends AppCompatActivity {
 
                         if(userCode.equals("1234")) {
                             Toast.makeText(GetCodeEmailActivity.this, "Все верно", Toast.LENGTH_SHORT).show();
-                            Intent create_password = new Intent(GetCodeEmailActivity.this, CreateProfileActivity.class);
+                            Intent create_password = new Intent(GetCodeEmailActivity.this, prof_activ.class);
                             startActivity(create_password);
                         } else {
                             Toast.makeText(GetCodeEmailActivity.this, "Неверно введен код", Toast.LENGTH_SHORT).show();
